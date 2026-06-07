@@ -22,7 +22,8 @@ SERVER_NAMES = ["www.google.com"]
 def run_xray(*args):
     result = subprocess.run(
         ["docker", "run", "--rm", XRAY_IMAGE, *args],
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         text=True,
         check=True,
     )
