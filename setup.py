@@ -35,9 +35,11 @@ def generate_uuid():
 
 def generate_keypair():
     output = run_xray("x25519")
-    private = re.search(r"Private key:\s*(\S+)", output).group(1)
-    public = re.search(r"Public key:\s*(\S+)", output).group(1)
-    return private, public
+    private_match = re.search(r"(?i)private\s*key[:\s]+(\S+)", output)
+    public_match = re.search(r"(?i)public\s*key[:\s]+(\S+)", output)
+    if not private_match or not public_match:
+        raise RuntimeError(f"Could not parse x25519 output:\n{output}")
+    return private_match.group(1), public_match.group(1)
 
 
 def get_server_ip():
