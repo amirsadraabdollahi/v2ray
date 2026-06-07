@@ -32,6 +32,9 @@ env/
 .DS_Store
 Thumbs.db
 
+# Generated server config (contains private key — never commit)
+config/config.json
+
 # Logs
 *.log
 
