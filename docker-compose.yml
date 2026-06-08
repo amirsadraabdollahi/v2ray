@@ -6,6 +6,7 @@ services:
       - "443:443"
     volumes:
       - ./config/config.json:/etc/xray/config.json:ro
+    command: ["-config", "/etc/xray/config.json"]
     restart: unless-stopped
     logging:
       driver: json-file
