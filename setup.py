@@ -61,6 +61,22 @@ def get_server_ip():
 def build_config(uuid, private_key, short_id):
     return {
         "log": {"loglevel": "warning"},
+        "policy": {
+            "levels": {
+                "0": {
+                    "uplinkOnly": 0,
+                    "downlinkOnly": 0,
+                    "connIdle": 300,
+                    "handshakeSecs": 8,
+                }
+            },
+            "system": {
+                "statsInboundUplink": False,
+                "statsInboundDownlink": False,
+                "statsOutboundUplink": False,
+                "statsOutboundDownlink": False,
+            },
+        },
         "inbounds": [
             {
                 "port": PORT,
@@ -78,15 +94,28 @@ def build_config(uuid, private_key, short_id):
                         "privateKey": private_key,
                         "shortIds": [short_id],
                     },
+                    "sockopt": {
+                        "tcpFastOpen": True,
+                        "tcpKeepAliveInterval": 60,
+                        "tcpKeepAliveIdle": 120,
+                    },
                 },
-                "sniffing": {
-                    "enabled": True,
-                    "destOverride": ["http", "tls", "quic"],
-                    "routeOnly": True,
+                "sniffing": {"enabled": False},
+            }
+        ],
+        "outbounds": [
+            {
+                "protocol": "freedom",
+                "tag": "direct",
+                "settings": {"domainStrategy": "UseIPv4"},
+                "streamSettings": {
+                    "sockopt": {
+                        "tcpFastOpen": True,
+                        "tcpKeepAliveInterval": 60,
+                    }
                 },
             }
         ],
-        "outbounds": [{"protocol": "freedom", "tag": "direct"}],
     }
 
 
