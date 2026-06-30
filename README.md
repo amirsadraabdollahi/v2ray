@@ -87,7 +87,18 @@ sysctl net.ipv4.tcp_congestion_control
 ```bash
 git clone git@github.com:amirsadraabdollahi/v2ray.git ~/v2ray
 cd ~/v2ray
+```
 
+> **Important:** Before running setup, open `setup.py` and replace the IP address in `get_server_ip()` with your server's actual public IP:
+>
+> ```python
+> def get_server_ip():
+>     return "YOUR_SERVER_IP"  # <-- replace this
+> ```
+>
+> You can find your public IP by running: `curl -s https://api.ipify.org`
+
+```bash
 python3 setup.py
 ```
 
