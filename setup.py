@@ -96,6 +96,7 @@ def build_config(uuid, private_key, short_id):
                     },
                     "sockopt": {
                         "tcpFastOpen": True,
+                        "tcpNoDelay": True,
                         "tcpKeepAliveInterval": 60,
                         "tcpKeepAliveIdle": 120,
                     },
@@ -111,6 +112,7 @@ def build_config(uuid, private_key, short_id):
                 "streamSettings": {
                     "sockopt": {
                         "tcpFastOpen": True,
+                        "tcpNoDelay": True,
                         "tcpKeepAliveInterval": 60,
                     }
                 },
